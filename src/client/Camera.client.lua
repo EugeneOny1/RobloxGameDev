@@ -1,4 +1,4 @@
--- This script runs on the client and forces an angled, 2D side-scrolling camera
+-- This script runs on the client and forces a LOCKED angled, 2D side-scrolling camera
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
@@ -6,23 +6,24 @@ local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
 -- Tunable Values: Change these to get the perfect angle!
-local Z_DISTANCE = 40    -- How far back the camera is (like the 50 before)
-local HEIGHT_OFFSET = 20 -- New! How high up the camera is. (This is your "football view")
+local Z_DISTANCE = 40    -- How far back the camera is
+local HEIGHT_OFFSET = 20 -- How high up the camera is
+
+-- == NEW CODE ==
+-- 1. Calculate the true, diagonal distance from the player to the camera
+local TRUE_DISTANCE = (Vector3.new(0, HEIGHT_OFFSET, Z_DISTANCE)).Magnitude
+
+-- 2. Set the min/max zoom to this exact distance to prevent scrolling
+player.CameraMinZoomDistance = TRUE_DISTANCE
+player.CameraMaxZoomDistance = TRUE_DISTANCE
+-- ==============
 
 local function force_camera()
     if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
         local rootPart = player.Character.HumanoidRootPart
-        
-        -- Get the CFrame (position and rotation) of the character
         local charCFrame = rootPart.CFrame
         
-        -- New! We create the offset as a single Vector3
-        -- 0 on X: Stays centered with the player
-        -- HEIGHT_OFFSET on Y: Lifts the camera up
-        -- Z_DISTANCE on Z: Puts the camera back
         local cameraOffset = Vector3.new(0, HEIGHT_OFFSET, Z_DISTANCE)
-
-        -- Set the camera's CFrame to be up and back
         local cameraPosition = charCFrame.Position + cameraOffset
         local lookAtPosition = charCFrame.Position
         
