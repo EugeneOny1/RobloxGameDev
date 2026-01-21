@@ -55,7 +55,7 @@ This is a work in progress. Future goals include:
 
 ## 🚀 Getting Started
 
-[Add simple steps for how someone could test it, e.g.:]
+Simple steps for test:
 1.  Open the project in Roblox Studio.
 2.  Run the `Main` scene.
 3.  Click the "Add Joint" button to place nodes.
