@@ -27,9 +27,9 @@
       }
     },
 
-    "StarterGui": {              
-      "$path": "src/ui"          
-    },
+   "StarterGui": {
+  "$path": "src/ui"
+},
 
 
     "Workspace": {
